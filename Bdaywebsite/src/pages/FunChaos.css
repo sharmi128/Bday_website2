@@ -1,0 +1,304 @@
+.funchaos-page {
+  position: relative;
+  width: 100%;
+  min-height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color: #fff;
+  background: linear-gradient(135deg, #1a0533 0%, #2d1b69 30%, #0d1b3e 70%, #1a0533 100%);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.funchaos-page.leaving {
+  opacity: 0;
+  transform: scale(1.05);
+  pointer-events: none;
+}
+
+.funchaos-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 600px 400px at 30% 20%, rgba(255, 107, 157, 0.18), transparent),
+    radial-gradient(ellipse 500px 500px at 70% 80%, rgba(138, 43, 226, 0.15), transparent),
+    radial-gradient(ellipse 400px 300px at 50% 50%, rgba(255, 214, 102, 0.1), transparent);
+  pointer-events: none;
+}
+
+.funchaos-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 165, 0, 0.08), transparent 70%);
+  pointer-events: none;
+}
+
+.funchaos-particles-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* FLOATERS */
+.funchaos-floaters {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.funchaos-floater {
+  position: absolute;
+  top: -40px;
+  animation: funchaos-drift linear infinite;
+  opacity: 0.35;
+}
+
+@keyframes funchaos-drift {
+  0% {
+    transform: translateY(-20px) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.35;
+  }
+  92% {
+    opacity: 0.35;
+  }
+  100% {
+    transform: translateY(105dvh) translateX(var(--sway, 30px)) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* INTRO */
+.funchaos-intro {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  animation: funchaos-intro-in 0.8s ease both;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.funchaos-intro.is-leaving {
+  opacity: 0;
+  transform: scale(0.9) translateY(-20px);
+  pointer-events: none;
+}
+
+@keyframes funchaos-intro-in {
+  from {
+    opacity: 0;
+    transform: scale(0.85) translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.funchaos-intro-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.funchaos-intro-emblem {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.funchaos-intro-emoji {
+  font-size: 60px;
+  animation: funchaos-pulse 1.2s ease-in-out infinite;
+}
+
+.funchaos-intro-spark {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  font-size: 24px;
+  animation: funchaos-sparkle 1.5s ease-in-out infinite;
+}
+
+@keyframes funchaos-pulse {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.15) rotate(8deg); }
+}
+
+@keyframes funchaos-sparkle {
+  0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
+  50% { opacity: 0.6; transform: scale(1.3) rotate(15deg); }
+}
+
+.funchaos-intro-kicker {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ffd166;
+  margin: 0;
+  text-shadow: 0 2px 12px rgba(255, 209, 102, 0.3);
+}
+
+.funchaos-intro-title {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+}
+
+.funchaos-start-btn {
+  margin-top: 12px;
+  padding: 14px 32px;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #ff6b9d, #c44dff, #ff9a56);
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  box-shadow:
+    0 4px 20px rgba(255, 107, 157, 0.4),
+    0 0 40px rgba(196, 77, 255, 0.2);
+  animation: funchaos-btn-glow 2s ease-in-out infinite;
+  transition: transform 0.2s ease;
+}
+
+.funchaos-start-btn:active {
+  transform: scale(0.95);
+}
+
+@keyframes funchaos-btn-glow {
+  0%, 100% { box-shadow: 0 4px 20px rgba(255, 107, 157, 0.4), 0 0 40px rgba(196, 77, 255, 0.2); }
+  50% { box-shadow: 0 4px 30px rgba(255, 107, 157, 0.6), 0 0 60px rgba(196, 77, 255, 0.35); }
+}
+
+/* CHAOS STAGE */
+.funchaos-stage {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  animation: funchaos-stage-in 0.5s ease both;
+}
+
+@keyframes funchaos-stage-in {
+  from { opacity: 0; transform: scale(1.1); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.funchaos-center {
+  text-align: center;
+  pointer-events: none;
+  user-select: none;
+}
+
+.funchaos-big-emoji {
+  font-size: 80px;
+  animation: funchaos-big-pulse 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes funchaos-big-pulse {
+  from { transform: scale(1) rotate(-5deg); }
+  to { transform: scale(1.12) rotate(5deg); }
+}
+
+.funchaos-title {
+  font-size: 2rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #ffd166, #ff6b9d, #c44dff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 12px 0 8px;
+  letter-spacing: 1px;
+}
+
+.funchaos-sub {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+}
+
+/* BURST */
+.chaos-burst {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.chaos-particle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  animation: chaos-fly var(--dur, 2s) ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes chaos-fly {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(0.5);
+    opacity: 1;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--dx, 100px), var(--dy, -200px)) rotate(var(--rot, 180deg)) scale(1);
+    opacity: 0;
+  }
+}
+
+/* FINISH AREA */
+.funchaos-finish-area {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+}
+
+.funchaos-go-btn {
+  padding: 14px 28px;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  animation: funchaos-go-in 0.6s ease both 0.3s;
+}
+
+.funchaos-go-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 209, 102, 0.5);
+  box-shadow: 0 0 20px rgba(255, 209, 102, 0.2);
+}
+
+@keyframes funchaos-go-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

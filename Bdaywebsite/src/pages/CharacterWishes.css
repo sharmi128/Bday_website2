@@ -1,0 +1,788 @@
+/* ============================================================
+   CHARACTER BIRTHDAY WISHES — Page 5
+   Cinematic scene: ME photo (left) → wish box (centre) →
+   character entering from the right, one at a time.
+   Reuses the exact existing images from /public (no redraws).
+   ============================================================ */
+
+.wishes-page {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: default;
+  animation: wishes-fade-in 1.1s ease-out;
+}
+
+@keyframes wishes-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Romantic cinematic background */
+.wishes-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(120vmax 80vmax at 50% -15%, rgba(255, 180, 110, 0.2), rgba(0, 0, 0, 0) 55%),
+    radial-gradient(90vmax 70vmax at 110% 110%, rgba(190, 120, 220, 0.16), rgba(0, 0, 0, 0) 55%),
+    radial-gradient(80vmax 60vmax at -10% 100%, rgba(255, 110, 150, 0.14), rgba(0, 0, 0, 0) 55%),
+    linear-gradient(170deg, #150a28 0%, #261040 35%, #321548 55%, #1f0e34 78%, #100722 100%);
+}
+
+.wishes-film-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 45%, rgba(6, 2, 14, 0.55) 100%);
+}
+
+/* ─────────────────────────────────────────────
+   THREE-COLUMN SCENE
+   ───────────────────────────────────────────── */
+.wishes-scene {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr) minmax(0, 1fr);
+  grid-template-rows: 1fr;
+  align-items: center;
+  gap: clamp(6px, 2vw, 28px);
+  padding: 74px clamp(10px, 3vw, 40px) 18px;
+  box-sizing: border-box;
+  overflow: hidden;
+  animation: wish-scene-in 0.8s ease-out both;
+}
+
+@keyframes wish-scene-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Small progress dots — which wish is showing (top, centred) */
+.wishes-progress {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: rgba(20, 8, 40, 0.45);
+  border: 1px solid rgba(255, 210, 140, 0.22);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.wishes-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: background 0.4s ease, transform 0.4s ease;
+}
+
+.wishes-dot.done {
+  background: #ffd166;
+}
+
+.wishes-dot.current {
+  background: #ff7ab8;
+  transform: scale(1.35);
+  box-shadow: 0 0 10px rgba(255, 122, 184, 0.8);
+}
+
+/* ────────────── ME PHOTO (LEFT) ────────────── */
+.wishes-me-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  animation: wish-me-in 1s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+}
+
+@keyframes wish-me-in {
+  0% { opacity: 0; transform: translateX(-30px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+.wishes-me-card {
+  position: relative;
+  width: min(30vw, 270px);
+  aspect-ratio: 4 / 5;
+  border-radius: 26px;
+  padding: 9px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, rgba(255, 246, 250, 0.16), rgba(255, 220, 235, 0.08));
+  border: 3px solid rgba(255, 200, 140, 0.55);
+  outline: 1px solid rgba(255, 255, 255, 0.45);
+  outline-offset: 4px;
+  box-shadow:
+    0 24px 60px rgba(15, 5, 35, 0.6),
+    0 0 44px rgba(255, 190, 120, 0.28),
+    inset 0 0 30px rgba(255, 200, 220, 0.12);
+  animation: wish-me-float 5.5s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes wish-me-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.wishes-me-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  background: radial-gradient(circle at 30% 15%, rgba(255, 230, 180, 0.18), rgba(0, 0, 0, 0) 55%);
+  pointer-events: none;
+}
+
+.wishes-me-img {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 18px;
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.45)) saturate(1.05) contrast(1.02);
+}
+
+/* soft pulsing glow — like ME is lit by each wish */
+.wishes-me-glow {
+  position: absolute;
+  inset: -14px;
+  z-index: 0;
+  border-radius: 34px;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 190, 120, 0.35), rgba(255, 130, 190, 0.15) 45%, rgba(0, 0, 0, 0) 70%);
+  animation: wish-me-glow-pulse 3.6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes wish-me-glow-pulse {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+
+.wishes-me-tag {
+  margin: 0;
+  font-size: clamp(0.7rem, 2vw, 0.95rem);
+  font-weight: 700;
+  color: #ffe6c2;
+  text-align: center;
+  text-shadow: 0 2px 14px rgba(255, 190, 120, 0.5);
+  letter-spacing: 1px;
+}
+
+/* Corner decorations (shared positions, re-coloured per container) */
+.w-me-corner,
+.w-box-corner {
+  position: absolute;
+  font-size: clamp(15px, 2.4vw, 20px);
+  line-height: 1;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.4));
+  z-index: 4;
+  animation: w-corner-bob 3.4s ease-in-out infinite;
+}
+
+.w-me-corner.wc-tl { top: -11px; left: -9px; }
+.w-me-corner.wc-tr { top: -11px; right: -9px; animation-delay: 0.5s; }
+.w-me-corner.wc-bl { bottom: -11px; left: -9px; animation-delay: 1s; }
+.w-me-corner.wc-br { bottom: -11px; right: -9px; animation-delay: 1.5s; }
+
+.w-box-corner.wc-tl { top: -10px; left: -9px; }
+.w-box-corner.wc-tr { top: -10px; right: -9px; animation-delay: 0.5s; }
+.w-box-corner.wc-bl { bottom: -10px; left: -9px; animation-delay: 1s; }
+.w-box-corner.wc-br { bottom: -10px; right: -9px; animation-delay: 1.5s; }
+
+@keyframes w-corner-bob {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-5px) rotate(5deg); }
+}
+
+/* ────────────── WISH BOX (CENTRE) ────────────── */
+.wishes-wish-box {
+  position: relative;
+  z-index: 6;
+  margin: 0 auto;
+  width: 100%;
+  max-width: clamp(280px, 34vw, 420px);
+  padding: clamp(22px, 3.6vw, 40px) clamp(20px, 3.2vw, 36px);
+  box-sizing: border-box;
+  border-radius: 28px;
+  text-align: center;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+
+  /* premium glass / scrapbook feel */
+  background:
+    linear-gradient(165deg, rgba(255, 246, 248, 0.12), rgba(255, 220, 235, 0.05)),
+    rgba(24, 12, 44, 0.55);
+  border: 2px solid rgba(255, 215, 150, 0.55);
+  outline: 1px solid rgba(255, 255, 255, 0.35);
+  outline-offset: 3px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow:
+    0 22px 60px rgba(10, 4, 24, 0.55),
+    0 0 46px rgba(255, 180, 110, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+
+  opacity: 0;
+  transform: translateY(22px) scale(0.9);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.wishes-wish-box.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  animation: wish-box-pop 0.8s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+}
+
+@keyframes wish-box-pop {
+  0% { opacity: 0; transform: translateY(22px) scale(0.88); }
+  60% { opacity: 1; transform: translateY(-4px) scale(1.02); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.wishes-wish-box.exiting {
+  opacity: 0;
+  transform: translateY(10px) scale(0.92);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+.wishes-box-heart {
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: clamp(20px, 3vw, 28px);
+  z-index: 5;
+  filter: drop-shadow(0 2px 8px rgba(255, 120, 170, 0.6));
+  animation: box-heart-bob 2.6s ease-in-out infinite;
+}
+
+@keyframes box-heart-bob {
+  0%, 100% { transform: translateX(-50%) translateY(0) scale(1); }
+  50% { transform: translateX(-50%) translateY(-6px) scale(1.1); }
+}
+
+.wishes-box-deco {
+  margin: 0 0 8px 0;
+  font-size: clamp(26px, 5vw, 42px);
+  line-height: 1;
+  filter: drop-shadow(0 2px 12px rgba(255, 200, 120, 0.5));
+  animation: box-deco-pop 0.7s cubic-bezier(0.34, 1.5, 0.64, 1) both;
+}
+
+@keyframes box-deco-pop {
+  0% { opacity: 0; transform: scale(0.3) rotate(-20deg); }
+  70% { opacity: 1; transform: scale(1.15) rotate(5deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+.wishes-box-greeting {
+  margin: 0 0 12px 0;
+  font-size: clamp(1.25rem, 4.2vw, 1.8rem);
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 0 2px 22px rgba(255, 210, 110, 0.55);
+  line-height: 1.3;
+  animation: wishes-text-in 0.6s ease-out both;
+}
+
+.wishes-box-message {
+  margin: 0;
+  font-size: clamp(0.92rem, 2.8vw, 1.12rem);
+  font-weight: 600;
+  color: rgba(255, 235, 245, 0.94);
+  line-height: 1.6;
+  animation: wishes-text-in 0.7s ease-out 0.15s both;
+}
+
+.wishes-box-prompt {
+  margin: 16px 0 0 0;
+  font-size: clamp(0.68rem, 2vw, 0.82rem);
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: rgba(255, 230, 194, 0.75);
+  text-transform: uppercase;
+  animation: prompt-pulse 2s ease-in-out infinite;
+}
+
+@keyframes prompt-pulse {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+
+@keyframes wishes-text-in {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ────────────── CHARACTER (RIGHT) ────────────── */
+.wishes-char-stage {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 100%;
+  min-height: 0;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  animation: char-enter-in 1s cubic-bezier(0.34, 1.15, 0.64, 1) both;
+  overflow: visible;
+}
+
+@keyframes char-enter-in {
+  0% { opacity: 0; transform: translateX(140px) scale(0.9); }
+  60% { opacity: 1; transform: translateX(-6px) scale(1.02); }
+  100% { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+.wishes-char-stage.exiting {
+  animation: char-exit-out 0.6s cubic-bezier(0.5, 0, 0.75, 0.4) forwards;
+}
+
+@keyframes char-exit-out {
+  0% { opacity: 1; transform: translateX(0) scale(1); }
+  100% { opacity: 0; transform: translateX(160px) scale(0.9); }
+}
+
+/* grounded floor shadow beneath the character */
+.wishes-char-ground {
+  position: absolute;
+  bottom: 2%;
+  width: min(70%, 260px);
+  height: 26px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0) 68%);
+  z-index: 0;
+}
+
+/* Character image — full body, gently breathing, never floating */
+.wishes-char-img {
+  position: relative;
+  z-index: 2;
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: clamp(320px, 72vh, 560px);
+  object-fit: contain;
+  filter: drop-shadow(0 16px 30px rgba(0, 0, 0, 0.5));
+  animation: char-breathe 4.2s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes char-breathe {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-7px) scale(1.015); }
+}
+
+/* gentle golden halo that pulses with the wish — like blinking light */
+.wishes-char-glow {
+  position: absolute;
+  bottom: 8%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: min(80%, 300px);
+  height: min(80%, 420px);
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 65%, rgba(255, 190, 120, 0.28), rgba(255, 130, 190, 0.1) 45%, rgba(0, 0, 0, 0) 70%);
+  animation: char-glow-pulse 3.2s ease-in-out infinite;
+  opacity: 0;
+}
+
+@keyframes char-glow-pulse {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 0.7; }
+}
+
+/* ─────────────────────────────────────────────
+   FINAL GROUP CELEBRATION
+   ───────────────────────────────────────────── */
+.wishes-celebration {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  animation: wishes-cele-in 1.2s ease-out;
+  background:
+    radial-gradient(90vmax 70vmax at 50% 20%, rgba(255, 190, 110, 0.22), rgba(0, 0, 0, 0) 55%),
+    radial-gradient(70vmax 60vmax at 90% 100%, rgba(255, 110, 160, 0.18), rgba(0, 0, 0, 0) 55%),
+    linear-gradient(170deg, #180b2c 0%, #2a1246 40%, #321548 60%, #170a2e 100%);
+}
+
+@keyframes wishes-cele-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.wishes-cele-confetti,
+.wishes-cele-balloons {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.wishes-cele-balloons {
+  z-index: 2;
+}
+
+/* Glowing golden particles */
+.wishes-cele-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.wishes-cele-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffe9a8, #ffcf5a 60%, rgba(255, 180, 60, 0));
+  box-shadow: 0 0 12px rgba(255, 210, 110, 0.7);
+  animation: cele-particle-float 6s ease-in-out infinite alternate;
+  opacity: 0;
+}
+
+@keyframes cele-particle-float {
+  0% { opacity: 0; transform: translateY(20px) scale(0.6); }
+  40% { opacity: 0.9; }
+  80% { opacity: 0.5; }
+  100% { opacity: 0.6; transform: translateY(-40px) scale(1.2); }
+}
+
+/* Birthday lights strung overhead */
+.wishes-cele-lights {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.wishes-cele-lights::before {
+  content: "";
+  position: absolute;
+  left: 2%;
+  right: 2%;
+  top: 6px;
+  height: 46px;
+  border-top: 2px solid rgba(255, 235, 190, 0.5);
+  border-radius: 50%;
+}
+
+.wishes-cele-light {
+  position: absolute;
+  top: 18px;
+  width: 13px;
+  height: 17px;
+  border-radius: 50%;
+  box-shadow: 0 0 10px 3px rgba(255, 210, 90, 0.5);
+  animation: cele-light-glow 1.8s ease-in-out infinite alternate;
+}
+
+.wishes-cele-light:nth-child(odd) {
+  background: radial-gradient(circle, #ffe082, #ff8c00);
+  box-shadow: 0 0 14px 5px rgba(255, 190, 40, 0.6);
+}
+
+.wishes-cele-light:nth-child(even) {
+  background: radial-gradient(circle, #ff8fa8, #ff3060);
+  box-shadow: 0 0 14px 5px rgba(255, 70, 100, 0.55);
+}
+
+@keyframes cele-light-glow {
+  0% { opacity: 0.5; transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1.15); }
+}
+
+/* Group of all 9 characters around ME */
+.wishes-cele-group {
+  position: absolute;
+  top: 8%;
+  left: 0;
+  right: 0;
+  height: 52%;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.wishes-cele-me-card {
+  position: absolute;
+  left: 50%;
+  top: 26%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  width: clamp(92px, 16vw, 150px);
+  aspect-ratio: 4 / 5;
+  padding: 5px;
+  box-sizing: border-box;
+  border-radius: 18px;
+  background: linear-gradient(160deg, rgba(255, 246, 250, 0.2), rgba(255, 220, 235, 0.1));
+  border: 2px solid rgba(255, 215, 150, 0.7);
+  outline: 1px solid rgba(255, 255, 255, 0.4);
+  outline-offset: 3px;
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.5),
+    0 0 40px rgba(255, 190, 120, 0.45);
+  animation: cele-me-pop 1s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes cele-me-pop {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.4); }
+  70% { opacity: 1; transform: translate(-50%, -50%) scale(1.08); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+.wishes-cele-me-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 14px;
+  display: block;
+}
+
+.wishes-cele-friend {
+  position: absolute;
+  width: clamp(64px, 12vw, 112px);
+  height: clamp(80px, 15vw, 140px);
+  object-fit: contain;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.45));
+  animation: cele-friend-pop 0.9s cubic-bezier(0.34, 1.5, 0.64, 1) both;
+}
+
+.wishes-cele-friend:nth-child(2) { animation-delay: 0.15s; }
+.wishes-cele-friend:nth-child(3) { animation-delay: 0.3s; }
+.wishes-cele-friend:nth-child(4) { animation-delay: 0.45s; }
+.wishes-cele-friend:nth-child(5) { animation-delay: 0.6s; }
+.wishes-cele-friend:nth-child(6) { animation-delay: 0.75s; }
+.wishes-cele-friend:nth-child(7) { animation-delay: 0.9s; }
+.wishes-cele-friend:nth-child(8) { animation-delay: 1.05s; }
+.wishes-cele-friend:nth-child(9) { animation-delay: 1.2s; }
+.wishes-cele-friend:nth-child(10) { animation-delay: 1.35s; }
+
+@keyframes cele-friend-pop {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.2) rotate(10deg); }
+  70% { opacity: 1; transform: translate(-50%, -50%) scale(1.08) rotate(0deg); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+}
+
+/* Celebration content */
+.wishes-cele-content {
+  position: absolute;
+  bottom: 6%;
+  left: 0;
+  right: 0;
+  z-index: 6;
+  padding: 14px 20px;
+  max-width: 620px;
+  width: 92%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.wishes-cele-title {
+  margin: 0;
+  font-size: clamp(1.4rem, 5.6vw, 2.5rem);
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: #fff;
+  text-shadow: 0 3px 30px rgba(255, 210, 110, 0.6), 0 0 60px rgba(255, 150, 190, 0.35);
+  line-height: 1.3;
+  animation: cele-title-pop 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) both, cele-title-pulse 2.6s ease-in-out 1.2s infinite;
+}
+
+.wishes-cele-sub {
+  margin: 0;
+  font-size: clamp(1.15rem, 4.4vw, 2rem);
+  font-weight: 800;
+  color: #ffe6c2;
+  text-shadow: 0 2px 22px rgba(255, 190, 120, 0.55);
+  animation: cele-title-pop 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s both;
+  line-height: 1.3;
+}
+
+@keyframes cele-title-pop {
+  0% { opacity: 0; transform: scale(0.7) translateY(20px); }
+  60% { opacity: 1; transform: scale(1.06); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes cele-title-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+.wishes-cele-btn {
+  border: none;
+  border-radius: 999px;
+  padding: 15px 36px;
+  font-size: clamp(1rem, 3.2vw, 1.2rem);
+  font-weight: 800;
+  font-family: inherit;
+  color: #1a0a30;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  background: linear-gradient(135deg, #ffd166, #ff8c5a, #ffd166);
+  background-size: 200% 200%;
+  box-shadow: 0 0 30px rgba(255, 190, 90, 0.55), 0 12px 30px rgba(0, 0, 0, 0.4);
+  animation: wishes-next-glow 2s ease-in-out infinite;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.wishes-cele-btn:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 44px rgba(255, 190, 90, 0.8), 0 16px 36px rgba(0, 0, 0, 0.45);
+}
+
+.wishes-cele-btn:active {
+  transform: scale(0.96);
+}
+
+@keyframes wishes-next-glow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ─────────────────────────────────────────────
+   RESPONSIVE
+   ───────────────────────────────────────────── */
+
+/* Tablet: keep three parts, reduced spacing */
+@media (max-width: 900px) and (min-width: 641px) {
+  .wishes-scene {
+    gap: 10px;
+    padding: 70px 12px 14px;
+  }
+
+  .wishes-me-card {
+    width: min(26vw, 210px);
+  }
+
+  .wishes-char-img {
+    height: clamp(300px, 66vh, 480px);
+  }
+}
+
+/* Mobile: stack ME → Character → Wish Box vertically */
+@media (max-width: 640px) {
+  .wishes-scene {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas: "me" "char" "box";
+    align-items: center;
+    justify-items: center;
+    gap: 4px;
+    padding: 64px 12px 12px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .wishes-progress {
+    top: 12px;
+    gap: 5px;
+  }
+
+  .wishes-dot {
+    width: 6px;
+    height: 6px;
+  }
+
+  .wishes-me-wrap {
+    grid-area: me;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .wishes-me-card {
+    width: 76px;
+    aspect-ratio: 4 / 5;
+  }
+
+  .wishes-me-tag {
+    font-size: 0.72rem;
+  }
+
+  .wishes-char-stage {
+    grid-area: char;
+    height: 46vh;
+    min-height: 240px;
+  }
+
+  .wishes-char-img {
+    height: 100%;
+    max-height: 46vh;
+  }
+
+  .wishes-char-ground {
+    bottom: 2%;
+  }
+
+  .wishes-wish-box {
+    grid-area: box;
+    max-width: 94%;
+    padding: 16px 18px;
+  }
+
+  .wishes-box-greeting {
+    font-size: clamp(1.1rem, 5vw, 1.5rem);
+  }
+
+  .wishes-box-message {
+    font-size: 0.9rem;
+  }
+
+  /* celebration on mobile */
+  .wishes-cele-group {
+    top: 10%;
+    height: 48%;
+  }
+
+  .wishes-cele-content {
+    bottom: 4%;
+    gap: 12px;
+  }
+
+  .wishes-cele-friend {
+    width: clamp(56px, 18vw, 84px);
+    height: clamp(70px, 22vw, 104px);
+  }
+
+  .wishes-cele-me-card {
+    width: clamp(76px, 20vw, 104px);
+  }
+}
