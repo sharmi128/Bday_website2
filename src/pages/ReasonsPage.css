@@ -1,0 +1,619 @@
+/* ============================================================
+   REASONS PAGE — Page 8: "6 Reasons Why You Are Special to Me"
+   Step 1: Cinematic intro + interactive YES button
+   Step 2: Six warm friendship cards, softly revealed
+           with floating hearts + sparkles + handwritten close
+   ============================================================ */
+
+.reasons-page {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  overflow-x: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: default;
+  animation: reasons-page-in 1.2s ease-out;
+}
+
+@keyframes reasons-page-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Warm dreamy friendship background (soft, not too romantic) */
+.reasons-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(120vmax 80vmax at 50% -15%, rgba(255, 200, 130, 0.22), rgba(0, 0, 0, 0) 55%),
+    radial-gradient(90vmax 70vmax at 110% 110%, rgba(120, 130, 240, 0.16), rgba(0, 0, 0, 0) 55%),
+    radial-gradient(80vmax 60vmax at -10% 100%, rgba(255, 150, 140, 0.15), rgba(0, 0, 0, 0) 55%),
+    linear-gradient(170deg, #150b2b 0%, #251240 35%, #331648 55%, #1f1030 78%, #120726 100%);
+}
+
+.reasons-ambient-glow {
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90vmax;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 215, 150, 0.16) 0%,
+    rgba(235, 130, 205, 0.09) 35%,
+    rgba(0, 0, 0, 0) 65%
+  );
+  filter: blur(18px);
+  z-index: 1;
+  pointer-events: none;
+  animation: reasons-glow-breathe 5.5s ease-in-out infinite;
+}
+
+@keyframes reasons-glow-breathe {
+  0%, 100% { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+}
+
+/* Floating tiny hearts, sparkles + soft petals (ambiance) */
+.reasons-drift {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.reasons-drift-heart,
+.reasons-drift-sparkle {
+  position: absolute;
+  opacity: 0;
+  animation: reasons-drift-float 11s ease-in-out infinite;
+}
+
+.reasons-drift-heart { font-size: 15px; }
+.reasons-drift-sparkle { font-size: 13px; }
+
+.rh-1 { left: 8%; top: 22%; animation-delay: 0.4s; }
+.rh-2 { left: 85%; top: 16%; animation-delay: 2.8s; }
+.rh-3 { left: 72%; top: 80%; animation-delay: 4.4s; }
+.rh-4 { left: 20%; top: 84%; animation-delay: 5.8s; }
+.rs-1 { left: 16%; top: 60%; animation-delay: 1.2s; }
+.rs-2 { left: 44%; top: 10%; animation-delay: 3.2s; }
+.rs-3 { left: 60%; top: 34%; animation-delay: 2s; }
+.rs-4 { left: 90%; top: 58%; animation-delay: 5s; }
+.rs-5 { left: 34%; top: 70%; animation-delay: 6.5s; }
+
+@keyframes reasons-drift-float {
+  0% { opacity: 0; transform: translateY(26px) scale(0.7) rotate(-6deg); }
+  25% { opacity: 0.55; }
+  60% { opacity: 0.35; transform: translateY(-32px) scale(1.08) rotate(8deg); }
+  100% { opacity: 0; transform: translateY(-68px) scale(0.85) rotate(-4deg); }
+}
+
+.reasons-particles-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ================= STEP 1 — INTRO ================= */
+
+.reasons-intro {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 20px;
+  box-sizing: border-box;
+  text-align: center;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  animation: reasons-intro-in 0.9s ease-out both;
+}
+
+@keyframes reasons-intro-in {
+  0% { opacity: 0; transform: translateY(18px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.reasons-intro.is-leaving {
+  animation: reasons-intro-out 0.7s ease-in forwards;
+}
+
+@keyframes reasons-intro-out {
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.94) translateY(-16px); }
+}
+
+.reasons-intro-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 580px;
+  width: 100%;
+  margin: auto;
+}
+
+.reasons-intro-emblem {
+  position: relative;
+  font-size: clamp(58px, 10vw, 76px);
+  line-height: 1;
+  margin-bottom: 22px;
+  animation: reasons-emblem-float 3s ease-in-out infinite;
+  filter: drop-shadow(0 8px 26px rgba(255, 190, 110, 0.4));
+}
+
+.reasons-intro-spark {
+  position: absolute;
+  top: -10px;
+  right: -18px;
+  font-size: 24px;
+  animation: reasons-spark-twinkle 1.8s ease-in-out infinite;
+}
+
+@keyframes reasons-emblem-float {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-9px) rotate(2deg); }
+}
+
+@keyframes reasons-spark-twinkle {
+  0%, 100% { opacity: 0.6; transform: scale(0.85) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.2) rotate(30deg); }
+}
+
+.reasons-intro-title {
+  margin: 0 0 16px 0;
+  font-size: clamp(1.5rem, 5.4vw, 2.45rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.35;
+  letter-spacing: 0.3px;
+  text-shadow: 0 3px 32px rgba(255, 200, 120, 0.55), 0 0 66px rgba(255, 140, 190, 0.3);
+}
+
+.reasons-intro-sub {
+  margin: 0 0 38px 0;
+  font-size: clamp(1rem, 3.5vw, 1.3rem);
+  font-weight: 600;
+  color: rgba(255, 236, 246, 0.9);
+  line-height: 1.6;
+  max-width: 500px;
+}
+
+/* Interactive YES button */
+.reasons-yes-btn {
+  position: relative;
+  border: none;
+  border-radius: 999px;
+  padding: 18px 42px;
+  font-size: clamp(1.05rem, 3.6vw, 1.3rem);
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  font-family: inherit;
+  color: #fff;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
+  background: linear-gradient(135deg, #ff8d5b, #ffb35e, #ff7aa8);
+  background-size: 220% 220%;
+  box-shadow: 0 0 26px rgba(255, 150, 110, 0.45), 0 14px 34px rgba(0, 0, 0, 0.35);
+  transition: transform 0.3s cubic-bezier(0.34, 1.4, 0.64, 1), box-shadow 0.3s ease;
+  animation: reasons-yes-pulse 2.4s ease-in-out infinite;
+}
+
+.reasons-yes-btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -130%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(105deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 100%);
+  transform: skewX(-24deg);
+  animation: reasons-shimmer 3.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes reasons-yes-pulse {
+  0%, 100% { box-shadow: 0 0 24px rgba(255, 150, 110, 0.4), 0 14px 34px rgba(0, 0, 0, 0.35); background-position: 0% 50%; }
+  50% { box-shadow: 0 0 46px rgba(255, 150, 110, 0.75), 0 14px 42px rgba(0, 0, 0, 0.4); background-position: 100% 50%; }
+}
+
+@keyframes reasons-shimmer {
+  0% { left: -130%; }
+  55% { left: 130%; }
+  100% { left: 130%; }
+}
+
+.reasons-yes-btn:hover {
+  transform: scale(1.06);
+}
+
+.reasons-yes-btn:active {
+  transform: scale(0.97);
+}
+
+.reasons-yes-btn.accepted {
+  transform: scale(1.06);
+  box-shadow: 0 0 60px rgba(255, 150, 130, 0.9), 0 16px 46px rgba(0, 0, 0, 0.42);
+}
+
+.reasons-yes-btn:disabled {
+  opacity: 1;
+  cursor: default;
+}
+
+/* ================= STEP 2 — SIX FRIENDSHIP CARDS ================= */
+
+.reasons-section {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  animation: reasons-section-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes reasons-section-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.reasons-scroller {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(240, 190, 130, 0.45) transparent;
+  padding: 34px 18px 40px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.reasons-scroller::-webkit-scrollbar {
+  width: 6px;
+}
+
+.reasons-scroller::-webkit-scrollbar-track {
+  background: rgba(255, 230, 190, 0.06);
+  border-radius: 999px;
+}
+
+.reasons-scroller::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(240, 190, 130, 0.55), rgba(255, 150, 180, 0.5));
+  border-radius: 999px;
+}
+
+/* Heading for the cards section */
+.reasons-heading {
+  margin: 0 0 26px 0;
+  text-align: center;
+  font-size: clamp(1.6rem, 5vw, 2.5rem);
+  font-weight: 900;
+  line-height: 1.3;
+  color: #fff;
+  letter-spacing: 0.3px;
+  text-shadow: 0 3px 34px rgba(255, 210, 140, 0.5), 0 0 70px rgba(255, 160, 200, 0.3);
+  animation: reasons-heading-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes reasons-heading-in {
+  0% { opacity: 0; transform: translateY(18px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.reasons-heading-emoji {
+  display: inline-block;
+  animation: reasons-heading-tilt 2.8s ease-in-out infinite;
+}
+
+@keyframes reasons-heading-tilt {
+  0%, 100% { transform: rotate(-6deg) scale(1); }
+  50% { transform: rotate(8deg) scale(1.15); }
+}
+
+/* Card grid — 2 columns on desktop, single column on mobile */
+.reasons-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  width: 100%;
+  max-width: 860px;
+  align-items: stretch;
+}
+
+/* A single friendship card */
+.reason-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 22px 22px 24px;
+  border-radius: 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+  color: #2b1b14;
+  border: 1px solid rgba(255, 246, 230, 0.75);
+  box-shadow:
+    0 16px 36px rgba(10, 4, 25, 0.35),
+    0 4px 14px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  opacity: 0;
+  animation: reason-card-in 0.7s cubic-bezier(0.22, 1.15, 0.36, 1) forwards;
+  animation-delay: calc(0.18s + var(--card-index) * 0.16s);
+  transition: transform 0.35s cubic-bezier(0.34, 1.3, 0.64, 1), box-shadow 0.35s ease;
+}
+
+@keyframes reason-card-in {
+  0% { opacity: 0; transform: translateY(34px) scale(0.94); }
+  60% { opacity: 1; transform: translateY(-4px) scale(1.01); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.reason-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow:
+    0 26px 50px rgba(10, 4, 25, 0.45),
+    0 6px 20px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  z-index: 3;
+}
+
+/* Per-card warm tint backgrounds */
+.reason-card.tint-c1 { background: linear-gradient(165deg, #fff6ec 0%, #ffe7cf 50%, #ffd8b8 100%); }
+.reason-card.tint-c2 { background: linear-gradient(165deg, #fff4f0 0%, #ffdfd9 50%, #ffc9d0 100%); }
+.reason-card.tint-c3 { background: linear-gradient(165deg, #f3fff4 0%, #dcf7df 50%, #c6efcf 100%); }
+.reason-card.tint-c4 { background: linear-gradient(165deg, #f7f3ff 0%, #e7dcff 50%, #d6c6ff 100%); }
+.reason-card.tint-c5 { background: linear-gradient(165deg, #fff8ef 0%, #ffeccd 50%, #ffe0a6 100%); }
+.reason-card.tint-c6 { background: linear-gradient(165deg, #eefaff 0%, #d6f2ff 50%, #bfe9ff 100%); }
+
+/* Soft top sheen on each card */
+.reason-card-sheen {
+  position: absolute;
+  top: -35%;
+  left: -15%;
+  width: 70%;
+  height: 90%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0) 70%);
+  pointer-events: none;
+  filter: blur(2px);
+}
+
+/* Floating decorative mini-emoji on cards */
+.reason-card-deco {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+  animation: reasons-card-deco-float 7s ease-in-out infinite;
+}
+
+.reason-card-deco-1 {
+  top: 12px;
+  right: 14px;
+  font-size: 17px;
+  animation-delay: 0.6s;
+}
+
+.reason-card-deco-2 {
+  bottom: 12px;
+  left: 14px;
+  font-size: 14px;
+  animation-delay: 2.4s;
+}
+
+@keyframes reasons-card-deco-float {
+  0% { opacity: 0; transform: translateY(12px) rotate(-8deg) scale(0.8); }
+  25% { opacity: 0.5; }
+  55% { opacity: 0.3; transform: translateY(-12px) rotate(10deg) scale(1.1); }
+  100% { opacity: 0; transform: translateY(-26px) rotate(-6deg) scale(0.85); }
+}
+
+/* Tiny sparkle corners on the card */
+.reason-card-spark {
+  position: absolute;
+  font-size: 15px;
+  color: rgba(120, 70, 40, 0.55);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.reason-card-spark.cs-tl { top: 8px; left: 10px; }
+.reason-card-spark.cs-br { bottom: 8px; right: 10px; }
+
+/* Number + big icon */
+.reason-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.reason-card-num {
+  font-size: clamp(0.95rem, 2.6vw, 1.05rem);
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: rgba(90, 55, 30, 0.75);
+}
+
+.reason-card-icon {
+  font-size: clamp(42px, 8vw, 54px);
+  line-height: 1;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.14));
+  animation: reasons-icon-bob 3.2s ease-in-out infinite;
+  animation-delay: calc(var(--card-index) * 0.25s);
+}
+
+@keyframes reasons-icon-bob {
+  0%, 100% { transform: translateY(0) rotate(-4deg); }
+  50% { transform: translateY(-7px) rotate(5deg); }
+}
+
+.reason-card-title {
+  margin: 0 0 10px 0;
+  font-size: clamp(1.15rem, 3.4vw, 1.4rem);
+  font-weight: 900;
+  line-height: 1.25;
+  color: #3a2115;
+}
+
+.reason-card-text {
+  margin: 0;
+  font-size: clamp(0.92rem, 2.6vw, 1.02rem);
+  font-weight: 600;
+  line-height: 1.62;
+  color: rgba(60, 36, 22, 0.85);
+}
+
+/* Handwritten closing line (Caveat font) */
+.reasons-handwritten {
+  margin: 34px auto 0;
+  max-width: 640px;
+  text-align: center;
+  font-family: 'Caveat', cursive;
+  font-size: clamp(1.7rem, 5.4vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.35;
+  color: #ffe9c9;
+  text-shadow: 0 3px 30px rgba(255, 210, 140, 0.45), 0 0 60px rgba(255, 170, 210, 0.25);
+  opacity: 0;
+  animation: reasons-handwritten-in 1s 1.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes reasons-handwritten-in {
+  0% { opacity: 0; transform: translateY(20px) rotate(-1deg); }
+  100% { opacity: 1; transform: translateY(0) rotate(0deg); }
+}
+
+/* Bottom controls */
+.reasons-controls {
+  position: relative;
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 26px;
+  padding-bottom: 10px;
+}
+
+.reasons-more-btn {
+  border: none;
+  border-radius: 999px;
+  padding: 15px 38px;
+  font-size: clamp(0.98rem, 3.2vw, 1.18rem);
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  font-family: inherit;
+  color: #3a1030;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  background: linear-gradient(135deg, #ffd98a, #ffb35f, #ff9a5f);
+  background-size: 200% 200%;
+  box-shadow: 0 0 26px rgba(255, 190, 90, 0.5), 0 12px 30px rgba(0, 0, 0, 0.32);
+  animation: reasons-more-glow 2.4s ease-in-out infinite, reasons-more-in 0.9s 1.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+@keyframes reasons-more-in {
+  0% { opacity: 0; transform: translateY(18px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes reasons-more-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(255, 190, 90, 0.45), 0 12px 30px rgba(0, 0, 0, 0.32); background-position: 0% 50%; }
+  50% { box-shadow: 0 0 38px rgba(255, 190, 90, 0.75), 0 12px 34px rgba(0, 0, 0, 0.36); background-position: 100% 50%; }
+}
+
+.reasons-more-btn:hover {
+  transform: scale(1.05);
+}
+
+.reasons-more-btn:active {
+  transform: scale(0.96);
+}
+
+.reasons-controls .sparkle-burst {
+  position: absolute;
+  inset: -40px;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* Page-level leaving transition */
+.reasons-page.leaving .reasons-section {
+  animation: reasons-section-out 0.65s ease-in forwards;
+}
+
+@keyframes reasons-section-out {
+  to { opacity: 0; transform: scale(0.96) translateY(-12px); }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 720px) {
+  .reasons-grid {
+    grid-template-columns: 1fr;
+    max-width: 560px;
+  }
+
+  .reasons-scroller {
+    padding: 26px 14px 32px;
+  }
+
+  .reason-card {
+    padding: 20px 20px 22px;
+    border-radius: 18px;
+  }
+}
+
+@media (max-width: 640px) {
+  .reasons-intro {
+    padding: 18px 16px;
+  }
+
+  .reasons-yes-btn {
+    padding: 16px 30px;
+  }
+
+  .reasons-scroller {
+    padding: 22px 12px 28px;
+  }
+
+  .reasons-heading {
+    margin-bottom: 22px;
+  }
+
+  .reason-card {
+    padding: 18px 18px 20px;
+  }
+
+  .reasons-handwritten {
+    margin-top: 28px;
+  }
+}
+
+@media (max-height: 620px) {
+  .reasons-scroller {
+    padding-top: 22px;
+  }
+
+  .reasons-heading {
+    margin-bottom: 18px;
+  }
+}

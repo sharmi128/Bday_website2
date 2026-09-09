@@ -1,0 +1,1247 @@
+/* ============================================================
+   CAKE SCENE — Page 4: Cinematic Birthday Cake
+   Composition: SHANTRA left · cake center foreground · ME (BRUNO) right
+   ============================================================ */
+
+.cake-scene {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: default;
+  animation: cake-fade-in 1.6s ease-out;
+}
+
+.cake-transition {
+  animation: cake-fade-out 1.8s ease-in forwards;
+}
+
+@keyframes cake-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes cake-fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* Background — warm cinematic night */
+.cake-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    175deg,
+    #17081f 0%,
+    #2a0f33 18%,
+    #3a1445 38%,
+    #3a1a4a 55%,
+    #2e1440 72%,
+    #1c0b30 86%,
+    #100621 100%
+  );
+  z-index: 0;
+}
+
+/* Birthday lights strung across the top */
+.cake-lights {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.cake-lights-string {
+  position: absolute;
+  left: -2%;
+  right: -2%;
+  top: 4px;
+  height: 42px;
+  border-top: 2px solid rgba(255, 230, 180, 0.55);
+  border-radius: 50%;
+  opacity: 0.8;
+}
+
+.cake-light {
+  position: absolute;
+  top: 14px;
+  width: 13px;
+  height: 18px;
+  border-radius: 50%;
+  box-shadow: 0 0 8px 2px rgba(255, 210, 90, 0.4);
+  animation: cake-light-glow 1.8s ease-in-out infinite alternate;
+}
+
+.cake-light:nth-child(odd) {
+  background: radial-gradient(circle, #ffe082, #ff8c00);
+  box-shadow: 0 0 12px 4px rgba(255, 190, 40, 0.55);
+}
+
+.cake-light:nth-child(even) {
+  background: radial-gradient(circle, #ff8fa8, #ff3060);
+  box-shadow: 0 0 12px 4px rgba(255, 70, 100, 0.5);
+}
+
+@keyframes cake-light-glow {
+  0% { opacity: 0.5; transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1.15); }
+}
+
+/* Warm ambient center glow */
+.cake-ambient-glow {
+  position: absolute;
+  top: 34%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90vmax;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 190, 110, 0.16) 0%,
+    rgba(255, 150, 60, 0.07) 35%,
+    rgba(0, 0, 0, 0) 65%
+  );
+  z-index: 1;
+  pointer-events: none;
+  animation: glow-breathe 5s ease-in-out infinite;
+}
+
+/* Soft cinematic bokeh */
+.cake-bokeh {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.cake-bokeh-dot {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 220, 150, 0.5), rgba(255, 160, 80, 0.12) 55%, rgba(0, 0, 0, 0) 72%);
+  filter: blur(6px);
+  animation: bokeh-drift 9s ease-in-out infinite alternate;
+}
+
+@keyframes bokeh-drift {
+  0% { transform: translateY(10px) scale(1); }
+  100% { transform: translateY(-24px) scale(1.15); }
+}
+
+/* Drifting sparkles */
+.cake-float-sparkles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.cake-float-sparkle {
+  position: absolute;
+  color: rgba(255, 236, 170, 0.75);
+  text-shadow: 0 0 10px rgba(255, 210, 100, 0.6);
+  animation: sparkle-drift 7s ease-in-out infinite alternate;
+}
+
+@keyframes sparkle-drift {
+  0% { opacity: 0; transform: translateY(0) rotate(0deg); }
+  20% { opacity: 1; }
+  100% { opacity: 0.35; transform: translateY(-48px) rotate(120deg); }
+}
+
+/* Confetti & sparkles layers */
+.cake-confetti-layer,
+.cake-sparkles-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Heart particles */
+.cake-heart-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.cake-heart {
+  position: absolute;
+  bottom: 32%;
+  animation: heart-float 2.2s ease-out forwards;
+  filter: drop-shadow(0 0 8px rgba(255, 50, 80, 0.6));
+}
+
+@keyframes heart-float {
+  0% { opacity: 0; transform: translateY(0) scale(0.5); }
+  20% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-130px) scale(1.25); }
+}
+
+/* ── Cinematic scene wrapper (view finder) ── */
+.cake-cinema {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  transition: transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: 50% 50%;
+}
+
+.cake-cinema.zoomed {
+  transform: scale(1.1);
+}
+
+.cake-cinema.wobble {
+  animation: cam-wobble 1.1s ease-in-out 2;
+}
+
+.cake-center-stage {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0;
+  position: relative;
+  z-index: 5;
+}
+
+@keyframes cam-wobble {
+  0% { transform: scale(1.1) rotate(0deg); }
+  30% { transform: scale(1.06) rotate(-0.35deg); }
+  60% { transform: scale(1.09) rotate(0.3deg); }
+  100% { transform: scale(1.1) rotate(0deg); }
+}
+
+/* Floor shadow for depth */
+.cake-floor {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 34%;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(10, 4, 20, 0.55) 100%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Contact shadows beneath each character */
+.cake-contact-shadow {
+  position: absolute;
+  left: 50%;
+  bottom: 3px;
+  width: 74%;
+  height: 13px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0) 68%);
+  filter: blur(2px);
+  pointer-events: none;
+}
+
+/* ── SHANTRA — left of the cake ── */
+.cake-girl-wrap {
+  position: relative;
+  width: clamp(190px, 24vw, 250px);
+  z-index: 8;
+  order: 1;
+  animation: girl-sway 4.2s ease-in-out infinite;
+}
+
+@keyframes girl-sway {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-0.5deg); }
+}
+
+.cake-girl-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 8px 20px rgba(120, 40, 190, 0.3));
+}
+
+/* ── ME (BRUNO) — right of the cake ── */
+.cake-me-wrap {
+  position: relative;
+  width: clamp(209px, 26vw, 275px);
+  z-index: 8;
+  order: 3;
+  animation: me-sway 4s ease-in-out infinite;
+}
+
+@keyframes me-sway {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(0.5deg); }
+}
+
+.cake-me-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 8px 20px rgba(180, 25, 50, 0.3));
+}
+
+/* ── Floating character name labels ──────────────────────────────
+   Anchored inside each character's wrap so they follow the
+   character's position, sway and camera movements.
+   Plain soft floating text (no box/panel/background). */
+.cake-name-label {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9;
+  padding: 2px 8px;
+  font-family: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  text-align: center;
+  white-space: nowrap;
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.75), 0 0 12px rgba(255, 210, 100, 0.45);
+  font-size: clamp(0.72rem, 2.4vw, 1rem);
+  pointer-events: none;
+  animation: cake-label-float 3.4s ease-in-out infinite;
+}
+
+@keyframes cake-label-float {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-4px); }
+}
+
+.cake-girl-wrap .cake-name-label {
+  top: 2%;
+}
+
+.cake-me-wrap .cake-name-label {
+  top: 15%;
+}
+
+/* ── Girl character animation refinements ── */
+.cake-girl-svg .ag-body {
+  animation: ag-body-breathe 3.8s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+@keyframes ag-body-breathe {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(1.01); }
+}
+
+.cake-girl-svg .ag-eyelid-left,
+.cake-girl-svg .ag-eyelid-right {
+  animation: ag-blink 4s ease-in-out infinite;
+  transform-box: fill-box;
+}
+
+.cake-girl-svg .ag-eyelid-right {
+  animation-delay: 0.12s;
+}
+
+@keyframes ag-blink {
+  0%, 42%, 44%, 100% { ry: 4; }
+  43% { ry: 14; }
+}
+
+.cake-girl-svg .ag-hair-front {
+  animation: ag-hair-move 3.6s ease-in-out infinite;
+  transform-origin: center top;
+}
+
+@keyframes ag-hair-move {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(1deg) translateX(1px); }
+}
+
+/* Face turns toward BRUNO + the cake (girl is left, cake/BRUNO to her right) */
+.cake-girl-svg .ag-face {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+}
+
+.cake-girl-svg .ag-face-right {
+  animation: ag-face-to-cake 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes ag-face-to-cake {
+  from { transform: rotate(0deg) translateX(0); }
+  to { transform: rotate(8deg) translateX(6px); }
+}
+
+.cake-girl-svg .ag-eyes {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.cake-girl-svg .ag-eyes-right {
+  animation: ag-eyes-look 0.9s ease-out forwards;
+}
+
+@keyframes ag-eyes-look {
+  from { transform: translateX(0); }
+  to { transform: translateX(5px); }
+}
+
+.cake-girl-svg .ag-mouth-talk ellipse {
+  animation: ag-mouth-anim 0.45s ease-in-out infinite alternate;
+}
+
+@keyframes ag-mouth-anim {
+  0% { ry: 3; }
+  100% { ry: 5.5; }
+}
+
+.cake-girl-svg .ag-mouth-open {
+  animation: ag-open-chew 0.7s ease-in-out infinite alternate;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+.cake-girl-svg .ag-mouth-chew {
+  animation: ag-chew 0.35s ease-in-out infinite alternate;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+@keyframes ag-open-chew {
+  0% { transform: scaleY(1); }
+  100% { transform: scaleY(0.65); }
+}
+
+@keyframes ag-chew {
+  0% { transform: scaleX(1) scaleY(1); }
+  100% { transform: scaleX(1.08) scaleY(0.8); }
+}
+
+/* Clapping — hands swing together (transform based, no d-path animation) */
+.cake-girl-svg .ag-clap-l {
+  transform-origin: 65px 158px;
+  animation: ag-clap-l 0.16s ease-in-out infinite alternate;
+}
+
+.cake-girl-svg .ag-clap-r {
+  transform-origin: 135px 158px;
+  animation: ag-clap-r 0.16s ease-in-out infinite alternate;
+}
+
+@keyframes ag-clap-l {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-9deg); }
+}
+
+@keyframes ag-clap-r {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(9deg); }
+}
+
+/* Offering arm gently lifts the cake piece */
+.cake-girl-svg .ag-offering-arm {
+  animation: ag-offer-reach 0.9s ease-out forwards;
+  transform-origin: 135px 158px;
+}
+
+@keyframes ag-offer-reach {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-10deg); }
+}
+
+/* ── ME (BRUNO) character animation refinements ── */
+.cake-me-svg .bh-breath {
+  animation: mh-breathe 3.8s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+@keyframes mh-breathe {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(1.012); }
+}
+
+.cake-me-svg .mh-head {
+  animation: mh-head-sway 5s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center bottom;
+}
+
+@keyframes mh-head-sway {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(1.2deg); }
+}
+
+/* BRUNO turns to face SHANTRA + the cake (he is right, they are to his left) */
+.cake-me-svg .mh-face-left {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: mh-face-to-cake 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes mh-face-to-cake {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-6deg); }
+}
+
+.cake-me-svg .mh-eyes {
+  animation: mh-blink 4.6s infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes mh-blink {
+  0%, 91%, 100% { transform: scaleY(1); }
+  93%, 95% { transform: scaleY(0.06); }
+}
+
+.cake-me-svg .bh-mouth-open {
+  animation: mh-open-talk 0.5s ease-in-out infinite alternate;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes mh-open-talk {
+  0% { transform: scaleY(1); }
+  100% { transform: scaleY(0.72); }
+}
+
+/* BRUNO's arm poses — gentle motions pivoting at the shoulder */
+.cake-me-svg .mh-point-arm {
+  animation: mh-point 0.7s ease-in-out infinite alternate;
+  transform-origin: 120px 172px;
+}
+
+.cake-me-svg .mh-feed-arm {
+  animation: mh-feed-hover 0.9s ease-in-out infinite alternate;
+  transform-origin: 122px 176px;
+}
+
+.cake-me-svg .mh-handshake-arm {
+  animation: mh-reach 1s ease-out forwards;
+  transform-origin: 116px 188px;
+}
+
+.cake-me-svg .mh-receptive-arm {
+  animation: mh-open-arm 1s ease-out forwards;
+  transform-origin: 120px 190px;
+}
+
+@keyframes mh-point {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-3deg); }
+}
+
+@keyframes mh-feed-hover {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+
+@keyframes mh-reach {
+  0% { transform: rotate(10deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes mh-open-arm {
+  0% { transform: rotate(-8deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* BRUNO clapping */
+.cake-me-svg .bh-arm-left.mh-clap-left {
+  transform-origin: 84px 198px;
+  animation: mh-clap-l 0.16s ease-in-out infinite alternate;
+}
+
+.cake-me-svg .bh-arm-right.mh-clap-right {
+  transform-origin: 136px 198px;
+  animation: mh-clap-r 0.16s ease-in-out infinite alternate;
+}
+
+@keyframes mh-clap-l {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-9deg); }
+}
+
+@keyframes mh-clap-r {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(9deg); }
+}
+
+/* ── Cake stage (center, between characters) ── */
+.cake-stage {
+  position: relative;
+  width: clamp(210px, 22vw, 300px);
+  z-index: 10;
+  order: 2;
+  margin: 0 1.5% 2%;
+  animation: cake-float 4s ease-in-out infinite;
+}
+
+.cake-stage.cut {
+  animation: none;
+}
+
+.cake-stage.cut .cake-svg {
+  animation: cake-split-settle 1.1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes cake-split-settle {
+  0% { transform: translateX(0); }
+  35% { transform: translateX(-5px); }
+  60% { transform: translateX(-2px); }
+  100% { transform: translateX(2px); }
+}
+
+@keyframes cake-float {
+  0%, 100% { transform: translateY(0) rotate(-0.3deg); }
+  50% { transform: translateY(-6px) rotate(0.3deg); }
+}
+
+/* Warm light glowing up around the cake */
+.cake-glow {
+  position: absolute;
+  left: 50%;
+  bottom: 10%;
+  width: 135%;
+  height: 120%;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse at 50% 55%,
+    rgba(255, 190, 90, 0.3) 0%,
+    rgba(255, 140, 50, 0.1) 45%,
+    rgba(0, 0, 0, 0) 68%
+  );
+  z-index: -1;
+  pointer-events: none;
+  animation: cake-glow-breathe 4.5s ease-in-out infinite;
+}
+
+@keyframes cake-glow-breathe {
+  0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.8; }
+  50% { transform: translateX(-50%) scale(1.08); opacity: 1; }
+}
+
+.cake-table {
+  position: relative;
+  width: 122%;
+  left: -11%;
+  margin-top: -8px;
+  z-index: 1;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.35));
+}
+
+.cake-body {
+  position: relative;
+}
+
+.cake-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 12px 30px rgba(0, 0, 0, 0.4));
+}
+
+/* ── Flame & smoke ── */
+.cake-flame {
+  animation: flame-flicker 0.4s ease-in-out infinite alternate;
+}
+
+.cake-flame.blowing {
+  animation: flame-blow-flicker 0.16s ease-in-out infinite alternate;
+}
+
+@keyframes flame-flicker {
+  0% { transform: scaleY(1) scaleX(1) translateX(-1px); }
+  33% { transform: scaleY(1.08) scaleX(0.95) translateX(1px); }
+  66% { transform: scaleY(0.95) scaleX(1.05) translateX(-0.5px); }
+  100% { transform: scaleY(1.05) scaleX(0.98) translateX(0.5px); }
+}
+
+/* Brief, vigorous flicker while blowing — then every flame goes out. */
+@keyframes flame-blow-flicker {
+  0% { transform: scaleY(1) scaleX(1) translateX(0) skewX(0deg); opacity: 1; }
+  25% { transform: scaleY(0.5) scaleX(1.3) translateX(-2px) skewX(-9deg); opacity: 0.55; }
+  50% { transform: scaleY(1.2) scaleX(0.9) translateX(2px) skewX(6deg); opacity: 1; }
+  75% { transform: scaleY(0.3) scaleX(1.45) translateX(-1px) skewX(-11deg); opacity: 0.4; }
+  100% { transform: scaleY(0.15) scaleX(1.5) translateX(1px) skewX(7deg); opacity: 0.72; }
+}
+
+.cake-smoke {
+  opacity: 0;
+}
+
+.smoke-a { animation: smoke-rise-a 2.4s ease-out forwards; }
+.smoke-b { animation: smoke-rise-b 2.4s ease-out forwards; }
+.smoke-c { animation: smoke-rise-c 2.4s ease-out forwards; }
+.smoke-d { animation: smoke-rise-d 2.4s ease-out forwards; }
+
+@keyframes smoke-rise-a {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
+  18% { opacity: 0.55; }
+  55% { opacity: 0.35; transform: translate(-4px, -28px) scale(1.8); }
+  100% { opacity: 0; transform: translate(-6px, -56px) scale(2.6); }
+}
+
+@keyframes smoke-rise-b {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
+  18% { opacity: 0.45; }
+  55% { opacity: 0.3; transform: translate(5px, -30px) scale(1.7); }
+  100% { opacity: 0; transform: translate(8px, -60px) scale(2.4); }
+}
+
+@keyframes smoke-rise-c {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.4); }
+  20% { opacity: 0.35; }
+  60% { opacity: 0.22; transform: translate(-2px, -34px) scale(1.9); }
+  100% { opacity: 0; transform: translate(-4px, -64px) scale(2.7); }
+}
+
+@keyframes smoke-rise-d {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.45); }
+  20% { opacity: 0.4; }
+  60% { opacity: 0.25; transform: translate(6px, -26px) scale(1.6); }
+  100% { opacity: 0; transform: translate(9px, -52px) scale(2.3); }
+}
+
+.cake-cut-line {
+  animation: cut-line-glow 1s ease-out;
+}
+
+@keyframes cut-line-glow {
+  0% { stroke-width: 0; opacity: 0; }
+  50% { stroke-width: 4; opacity: 1; }
+  100% { stroke-width: 2; opacity: 0.85; }
+}
+
+/* ── Knife — measures the cut through the cake ── */
+.cake-knife {
+  position: absolute;
+  left: 50%;
+  top: 5%;
+  width: 42px;
+  z-index: 12;
+  pointer-events: none;
+  transform-origin: center top;
+  will-change: transform;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.35));
+}
+
+.cake-knife-saw {
+  animation: knife-saw 0.16s ease-in-out infinite alternate;
+}
+
+@keyframes knife-saw {
+  0% { transform: rotate(-2.4deg); }
+  100% { transform: rotate(2.4deg); }
+}
+
+.cake-knife-svg {
+  width: 100%;
+  height: auto;
+}
+
+/* ── Separated slice, crumbs and cream ── */
+.cake-slice-wrap {
+  position: absolute;
+  left: 55%;
+  top: 26%;
+  width: 24%;
+  z-index: 11;
+  pointer-events: none;
+}
+
+.cake-crumb {
+  position: absolute;
+  border-radius: 50%;
+  background: #e8b08a;
+  box-shadow: 0 0 6px rgba(255, 220, 180, 0.5);
+  opacity: 0;
+  animation: crumb-pop 0.9s ease-out forwards;
+}
+
+.cake-crumb:nth-child(1) { --crx: 34px; --cry: -18px; }
+.cake-crumb:nth-child(2) { --crx: -26px; --cry: -12px; }
+.cake-crumb:nth-child(3) { --crx: 20px; --cry: 14px; }
+.cake-crumb:nth-child(4) { --crx: -16px; --cry: 16px; }
+.cake-crumb:nth-child(5) { --crx: 0px; --cry: -26px; }
+
+@keyframes crumb-pop {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.6); }
+  25% { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--crx, 12px), var(--cry, -10px)) scale(0.9); }
+}
+
+.cake-slice {
+  animation: slice-pop 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.35));
+}
+
+@keyframes slice-pop {
+  0% { transform: translateX(0) rotate(0deg); }
+  40% { transform: translateX(24px) rotate(9deg); }
+  100% { transform: translateX(34px) rotate(6deg); }
+}
+
+.cake-slice-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.cake-cream-blob {
+  position: absolute;
+  left: 50%;
+  top: 4%;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ffffff, #f2e6f6 60%, #e6d6f0);
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
+  animation: cream-squish 1.4s ease-out forwards;
+}
+
+@keyframes cream-squish {
+  0% { opacity: 0; transform: scale(0.3); }
+  30% { opacity: 1; transform: scale(1.4); }
+  55% { opacity: 1; transform: scale(0.8); }
+  80% { opacity: 1; transform: scale(1.1); }
+  100% { opacity: 0; transform: scale(1); }
+}
+
+/* ── Feeding morsels — travel hand → mouth (positioned to anchors) ── */
+.cake-morsel {
+  position: absolute;
+  z-index: 14;
+  width: 46px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  transition:
+    left 1.15s cubic-bezier(0.45, 0, 0.25, 1),
+    top 1.15s cubic-bezier(0.45, 0, 0.25, 1),
+    opacity 0.55s ease;
+  will-change: left, top;
+  filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.42));
+}
+
+.cake-morsel.show {
+  opacity: 1;
+}
+
+.cake-morsel.gone {
+  opacity: 0;
+}
+
+.cake-morsel-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  animation: morsel-bob 0.35s ease-in-out infinite alternate;
+}
+
+@keyframes morsel-bob {
+  0% { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(-3px) rotate(3deg); }
+}
+
+/* ── Clasped hands — gland vision: hands truly meet ── */
+.cake-hands {
+  position: absolute;
+  z-index: 16;
+  width: 96px;
+  transform: translate(-50%, -50%) scale(0.6);
+  opacity: 0;
+  pointer-events: none;
+  filter: drop-shadow(0 6px 18px rgba(255, 220, 160, 0.45));
+}
+
+.cake-hands.active {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+  animation: handshake-wobble 1.7s ease-in-out 2;
+}
+
+@keyframes handshake-wobble {
+  0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+  25% { transform: translate(-50%, -50%) scale(1.04) rotate(-3.5deg); }
+  50% { transform: translate(-50%, -50%) scale(1.04) rotate(3.5deg); }
+  75% { transform: translate(-50%, -50%) scale(1.04) rotate(-3deg); }
+  100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+}
+
+.cake-hands-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ── Text bubble ──
+   Soft speech bubble that floats above the cake scene (centered),
+   never off to the side. Keeps its card styling but sits close to
+   the cake so the message feels like part of the scene. */
+.cake-text-bubble {
+  position: absolute;
+  left: 50%;
+  top: 26%;
+  transform: translateX(-50%);
+  max-width: min(340px, 40vw);
+  width: auto;
+  min-width: 220px;
+  padding: 14px 22px;
+  background: rgba(20, 10, 36, 0.55);
+  border: 1px solid rgba(255, 210, 130, 0.22);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 30;
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.32);
+  animation: cake-bubble-enter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-sizing: border-box;
+}
+
+@keyframes cake-bubble-enter {
+  from { opacity: 0; transform: translateX(-50%) translateY(16px) scale(0.92); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+}
+
+.cake-text-msg {
+  margin: 0;
+  font-size: clamp(1rem, 3vw, 1.4rem);
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 1px 16px rgba(255, 200, 100, 0.45);
+  line-height: 1.5;
+}
+
+/* ── Heartfelt messages ──
+   The final birthday message floats centered above the cake scene,
+   stacked above the speech bubble so both belong to the cake. */
+.cake-heartfelt-wrap {
+  position: absolute;
+  top: 7%;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: min(340px, 40vw);
+  width: auto;
+  z-index: 30;
+  animation: cake-heartfelt-enter 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes cake-heartfelt-enter {
+  from { opacity: 0; transform: translateX(-50%) translateY(18px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+.cake-heartfelt-msg {
+  margin: 0;
+  font-size: clamp(0.72rem, 1.6vw, 0.92rem);
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+  line-height: 1.35;
+  text-shadow: 0 2px 20px rgba(255, 200, 100, 0.4);
+  padding: 11px 14px;
+  background: rgba(20, 10, 36, 0.55);
+  border: 1px solid rgba(255, 210, 130, 0.2);
+  border-radius: 18px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.cake-heartfelt-both {
+  white-space: normal;
+}
+
+/* ── Action Buttons ── */
+.cake-btn {
+  position: absolute;
+  left: 50%;
+  z-index: 60;
+  transform: translateX(-50%);
+  border: none;
+  border-radius: 16px;
+  font-size: clamp(0.95rem, 2.8vw, 1.3rem);
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  pointer-events: auto;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  padding: 17px 34px;
+  margin: 0;
+  bottom: 3%;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  animation: cake-btn-enter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+@keyframes cake-btn-enter {
+  from { opacity: 0; transform: translateX(-50%) translateY(20px) scale(0.85); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+}
+
+.cake-btn:active {
+  transform: translateX(-50%) scale(0.96) !important;
+}
+
+.cake-btn-wish {
+  background: linear-gradient(135deg, #FFD700, #FFA500, #FFD700);
+  background-size: 200% 200%;
+  color: #1A1A2E;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5), 0 0 40px rgba(255, 215, 0, 0.25), 0 8px 24px rgba(0, 0, 0, 0.3);
+  animation: cake-btn-enter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), cake-wish-glow 2s ease-in-out infinite;
+}
+
+.cake-btn-wish:hover {
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.7), 0 0 60px rgba(255, 215, 0, 0.35), 0 12px 32px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes cake-wish-glow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.cake-btn-blow {
+  background: linear-gradient(135deg, #4FC3F7, #29B6F6, #4FC3F7);
+  background-size: 200% 200%;
+  color: #0A1A3E;
+  box-shadow: 0 0 20px rgba(79, 195, 247, 0.4), 0 0 40px rgba(79, 195, 247, 0.2), 0 8px 24px rgba(0, 0, 0, 0.3);
+  animation: cake-btn-enter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), cake-blow-glow 2s ease-in-out infinite;
+}
+
+.cake-btn-blow:hover {
+  box-shadow: 0 0 30px rgba(79, 195, 247, 0.6), 0 0 60px rgba(79, 195, 247, 0.3), 0 12px 32px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes cake-blow-glow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.cake-btn-cut {
+  background: linear-gradient(135deg, #50E880, #2FBF6C, #50E880);
+  background-size: 200% 200%;
+  color: #062B16;
+  box-shadow: 0 0 20px rgba(80, 232, 128, 0.4), 0 0 40px rgba(80, 232, 128, 0.2), 0 8px 24px rgba(0, 0, 0, 0.3);
+  animation: cake-btn-enter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), cake-cut-glow 2s ease-in-out infinite;
+}
+
+.cake-btn-cut:hover {
+  box-shadow: 0 0 30px rgba(80, 232, 128, 0.6), 0 0 60px rgba(80, 232, 128, 0.3), 0 12px 32px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes cake-cut-glow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.cake-btn-feed {
+  background: linear-gradient(135deg, #FF6B8B, #FF3060, #FF6B8B);
+  background-size: 200% 200%;
+  color: #fff;
+  box-shadow: 0 0 20px rgba(255, 107, 139, 0.4), 0 0 40px rgba(255, 107, 139, 0.2), 0 8px 24px rgba(0, 0, 0, 0.3);
+  animation: cake-btn-enter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), cake-feed-glow 2s ease-in-out infinite;
+}
+
+.cake-btn-feed:hover {
+  box-shadow: 0 0 30px rgba(255, 107, 139, 0.6), 0 0 60px rgba(255, 107, 139, 0.3), 0 12px 32px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes cake-feed-glow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.cake-btn-handshake {
+  background: linear-gradient(135deg, #A88BFF, #7C5CFC, #A88BFF);
+  background-size: 200% 200%;
+  color: #fff;
+  box-shadow: 0 0 20px rgba(168, 139, 255, 0.4), 0 0 40px rgba(168, 139, 255, 0.2), 0 8px 24px rgba(0, 0, 0, 0.3);
+  animation: cake-btn-enter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), cake-handshake-glow 2s ease-in-out infinite;
+}
+
+.cake-btn-handshake:hover {
+  box-shadow: 0 0 30px rgba(168, 139, 255, 0.6), 0 0 60px rgba(168, 139, 255, 0.3), 0 12px 32px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes cake-handshake-glow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.cake-btn-continue {
+  background: linear-gradient(135deg, #FFD700, #FF8C00, #FFD700);
+  background-size: 200% 200%;
+  color: #1A1A2E;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5), 0 0 40px rgba(255, 215, 0, 0.25), 0 8px 24px rgba(0, 0, 0, 0.3);
+  animation: cake-btn-enter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), cake-wish-glow 2s ease-in-out infinite;
+}
+
+.cake-btn-continue:hover {
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.7), 0 0 60px rgba(255, 215, 0, 0.35), 0 12px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* ── Handshake glow overlay ── */
+.cake-handshake-glow {
+  position: fixed;
+  inset: 0;
+  z-index: 35;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at 50% 62%,
+    rgba(168, 139, 255, 0.4) 0%,
+    rgba(220, 200, 255, 0.16) 32%,
+    rgba(0, 0, 0, 0) 60%
+  );
+  animation: handshake-glow-anim 2.4s ease-out forwards;
+}
+
+@keyframes handshake-glow-anim {
+  0% { opacity: 0; }
+  25% { opacity: 1; }
+  70% { opacity: 0.6; }
+  100% { opacity: 0; }
+}
+
+/* ── Next placeholder ── */
+.cake-next-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 20px;
+  animation: cake-fade-in 1.2s ease-out;
+}
+
+.cake-next-msg {
+  margin: 0;
+  font-size: clamp(1.1rem, 3.5vw, 1.8rem);
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 2px 24px rgba(255, 200, 100, 0.4);
+  animation: cake-text-pulse 2.8s ease-in-out infinite;
+}
+
+@keyframes cake-text-pulse {
+  0%, 100% { opacity: 0.85; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-6px); }
+}
+
+@keyframes glow-breathe {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
+  50% { transform: translate(-50%, -50%) scale(1.12); opacity: 1; }
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .cake-cinema {
+    align-items: center;
+  }
+
+  .cake-center-stage {
+    flex-wrap: nowrap;
+  }
+
+  .cake-girl-wrap {
+    width: clamp(88px, 24vw, 130px);
+  }
+
+  .cake-me-wrap {
+    width: clamp(98px, 26vw, 145px);
+  }
+
+  .cake-name-label {
+    padding: 2px 7px;
+    letter-spacing: 0.8px;
+    font-size: clamp(0.6rem, 2.6vw, 0.8rem);
+  }
+
+  .cake-girl-wrap .cake-name-label {
+    top: 1%;
+  }
+
+  .cake-me-wrap .cake-name-label {
+    top: 14%;
+  }
+
+  .cake-stage {
+    width: clamp(132px, 40vw, 200px);
+    margin: 0 1% 4%;
+  }
+
+  .cake-text-bubble {
+    left: 50%;
+    top: 18%;
+    transform: translateX(-50%);
+    padding: 10px 16px;
+    max-width: min(340px, 86%);
+    min-width: 0;
+  }
+
+  /* When the heartfelt card is also present, sit the speech bubble just
+     below it so the two float above the cake without overlapping. */
+  .cake-scene:has(.cake-heartfelt-wrap) .cake-text-bubble {
+    top: 23%;
+  }
+
+  .cake-text-msg {
+    font-size: clamp(0.85rem, 3vw, 1.15rem);
+  }
+
+  @keyframes cake-bubble-enter {
+    from { opacity: 0; transform: translateX(-50%) translateY(16px) scale(0.92); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+  }
+
+  .cake-btn {
+    padding: 15px 26px;
+    font-size: clamp(0.85rem, 2.9vw, 1.05rem);
+    bottom: 2%;
+  }
+
+  .cake-heartfelt-wrap {
+    top: 4%;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: min(320px, 88%);
+    width: auto;
+  }
+
+  @keyframes cake-heartfelt-enter {
+    from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+
+  .cake-heartfelt-msg {
+    font-size: clamp(0.62rem, 2.1vw, 0.82rem);
+    line-height: 1.3;
+    padding: 8px 11px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 900px) {
+  .cake-girl-wrap {
+    width: clamp(150px, 21vw, 190px);
+  }
+
+  .cake-me-wrap {
+    width: clamp(165px, 23vw, 209px);
+  }
+
+  .cake-stage {
+    width: clamp(190px, 24vw, 240px);
+  }
+}

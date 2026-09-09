@@ -1,0 +1,735 @@
+/* ============================================================
+   OUR FUTURE WISHES PAGE — Page 10
+   A dreamy night sky with hidden wishes.
+   Intro → discover 6 special stars → constellation finale.
+   ============================================================ */
+
+.fw-page {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  overflow-x: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: default;
+  animation: fw-page-in 1.1s ease-out;
+}
+
+@keyframes fw-page-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fw-page.leaving {
+  cursor: progress;
+}
+
+.fw-page.leaving > * {
+  opacity: 0;
+  transition: opacity 0.7s ease-in;
+}
+
+/* Deep dreamy night-sky base */
+.fw-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(120vmax 90vmax at 50% 118%, rgba(70, 60, 150, 0.5), rgba(0, 0, 0, 0) 55%),
+    radial-gradient(100vmax 70vmax at 80% -10%, rgba(120, 90, 220, 0.28), rgba(0, 0, 0, 0) 55%),
+    radial-gradient(80vmax 60vmax at 10% 20%, rgba(40, 90, 200, 0.22), rgba(0, 0, 0, 0) 55%),
+    linear-gradient(180deg, #030616 0%, #0a1030 46%, #101a4a 72%, #0b0f2e 100%);
+}
+
+/* Subtle nebula clouds drifting slowly */
+.fw-nebula {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.fw-neb-1 {
+  width: 62vmax;
+  height: 34vmax;
+  top: -6%;
+  right: -14%;
+  background: radial-gradient(circle, rgba(226, 120, 196, 0.22), rgba(0, 0, 0, 0) 70%);
+  animation: fw-neb-drift-1 42s ease-in-out infinite alternate;
+}
+
+.fw-neb-2 {
+  width: 58vmax;
+  height: 32vmax;
+  bottom: 4%;
+  left: -16%;
+  background: radial-gradient(circle, rgba(110, 120, 255, 0.2), rgba(0, 0, 0, 0) 70%);
+  animation: fw-neb-drift-2 52s ease-in-out infinite alternate;
+}
+
+.fw-neb-3 {
+  width: 44vmax;
+  height: 26vmax;
+  top: 38%;
+  left: 30%;
+  background: radial-gradient(circle, rgba(85, 190, 255, 0.14), rgba(0, 0, 0, 0) 70%);
+  animation: fw-neb-drift-1 36s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes fw-neb-drift-1 {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(-26px, 18px, 0) scale(1.08); }
+}
+
+@keyframes fw-neb-drift-2 {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(24px, -16px, 0) scale(1.1); }
+}
+
+/* The sky layer that holds everything interactive */
+.fw-sky {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Tiny background star fields, each drifting at its own pace */
+.fw-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.fw-lay-a {
+  animation: fw-parallax-a 34s ease-in-out infinite alternate;
+}
+
+.fw-lay-b {
+  animation: fw-parallax-b 48s ease-in-out infinite alternate;
+}
+
+@keyframes fw-parallax-a {
+  from { transform: translate3d(-10px, 0, 0); }
+  to { transform: translate3d(12px, 6px, 0); }
+}
+
+@keyframes fw-parallax-b {
+  from { transform: translate3d(9px, 4px, 0); }
+  to { transform: translate3d(-13px, -5px, 0); }
+}
+
+.fw-tiny {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, #ffffff, #ffe9b8 70%, rgba(255, 226, 160, 0));
+  box-shadow: 0 0 6px rgba(255, 235, 190, 0.8);
+  animation: fw-tiny-twinkle ease-in-out infinite;
+}
+
+@keyframes fw-tiny-twinkle {
+  0%, 100% { opacity: 0.25; transform: scale(0.75); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+/* Occasional shooting stars */
+.fw-shoots {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.fw-shoot {
+  position: absolute;
+  width: 110px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0));
+  opacity: 0;
+  transform: rotate(38deg);
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.7));
+}
+
+.fw-shoot-1 { top: 12%; left: 78%; animation: fw-shoot-fly 11s linear infinite; }
+.fw-shoot-2 { top: 26%; left: 62%; animation: fw-shoot-fly 14s linear infinite 7s; }
+.fw-shoot-3 { top: 8%; left: 86%; animation: fw-shoot-fly 17s linear infinite 11s; }
+
+@keyframes fw-shoot-fly {
+  0% { opacity: 0; transform: translate3d(0, 0, 0) rotate(38deg); }
+  3% { opacity: 0.85; }
+  9% { opacity: 0; transform: translate3d(-220px, 168px, 0) rotate(38deg); }
+  100% { opacity: 0; transform: translate3d(-220px, 168px, 0) rotate(38deg); }
+}
+
+/* ================= INTRO LINES ================= */
+
+.fw-intro {
+  position: absolute;
+  inset: 0;
+  z-index: 25;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 30px 22px;
+  box-sizing: border-box;
+  text-align: center;
+  pointer-events: none;
+  animation: fw-intro-hide 0.9s ease-in forwards;
+  animation-delay: 2.7s;
+}
+
+@keyframes fw-intro-hide {
+  to { opacity: 0; }
+}
+
+.fw-intro-line {
+  margin: 0;
+  opacity: 0;
+  max-width: 620px;
+  animation: fw-intro-line-in 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.fw-i1 {
+  font-size: clamp(1.05rem, 3.8vw, 1.45rem);
+  font-weight: 800;
+  color: rgba(255, 244, 232, 0.95);
+  animation-delay: 0.3s;
+}
+
+.fw-i2 {
+  font-size: clamp(1.4rem, 5vw, 2.1rem);
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 0 3px 30px rgba(150, 150, 255, 0.55), 0 0 60px rgba(255, 180, 220, 0.35);
+  animation-delay: 1.1s;
+}
+
+.fw-i3 {
+  font-size: clamp(1rem, 3.6vw, 1.3rem);
+  font-weight: 700;
+  color: #ffe4b8;
+  text-shadow: 0 2px 22px rgba(255, 200, 130, 0.5);
+  animation-delay: 1.9s;
+}
+
+@keyframes fw-intro-line-in {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ================= SPECIAL STARS ================= */
+
+.fw-swrap {
+  position: absolute;
+  z-index: 10;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* A star button with a generous (invisible-ish) touch target */
+.fw-star {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  animation: fw-standing 6s ease-in-out infinite;
+  animation-delay: var(--tdelay, 0s);
+}
+
+.fw-star:disabled {
+  cursor: default;
+}
+
+/* The visible glowing 4-point star */
+.fw-star-shape {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(var(--ang, 0deg)) scale(var(--scale, 1));
+  filter: drop-shadow(0 0 7px rgba(255, 216, 140, 0.85)) drop-shadow(0 0 18px rgba(255, 195, 120, 0.4));
+  animation: fw-pulse var(--tdur, 3.6s) ease-in-out infinite;
+  animation-delay: var(--tdelay, 0s);
+}
+
+.fw-star-shape::before,
+.fw-star-shape::after {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #fff 50%, rgba(255, 255, 255, 0) 100%);
+}
+
+.fw-star-shape::before {
+  width: 46px;
+  height: 5px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.fw-star-shape::after {
+  width: 5px;
+  height: 46px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.fw-star-core {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fff 0%, #ffe9b0 40%, #ffc966 75%, rgba(255, 200, 100, 0) 100%);
+  box-shadow: 0 0 12px rgba(255, 225, 160, 0.95), 0 0 26px rgba(255, 205, 120, 0.5);
+  animation: fw-core-twinkle var(--tdur, 4s) ease-in-out infinite;
+}
+
+@keyframes fw-pulse {
+  0%, 100% { opacity: 0.78; transform: rotate(var(--ang, 0deg)) scale(calc(var(--scale, 1) * 0.94)); filter: drop-shadow(0 0 6px rgba(255, 216, 140, 0.7)) drop-shadow(0 0 14px rgba(255, 195, 120, 0.3)); }
+  50% { opacity: 1; transform: rotate(var(--ang, 0deg)) scale(calc(var(--scale, 1) * 1.09)); filter: drop-shadow(0 0 10px rgba(255, 230, 170, 1)) drop-shadow(0 0 26px rgba(255, 205, 130, 0.55)); }
+}
+
+@keyframes fw-core-twinkle {
+  0%, 100% { opacity: 0.85; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+@keyframes fw-standing {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+
+/* Soft breathing halo behind each star */
+.fw-star-halo {
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 220, 150, 0.4), rgba(255, 190, 120, 0.12) 55%, rgba(0, 0, 0, 0) 72%);
+  animation: fw-halo-breathe var(--tdur, 3.6s) ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes fw-halo-breathe {
+  0%, 100% { opacity: 0.55; transform: scale(0.92); }
+  50% { opacity: 1; transform: scale(1.14); }
+}
+
+/* Discovered star → softly lit forever, calmer pulse */
+.fw-star.done .fw-star-shape {
+  animation: fw-lit 3.4s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px rgba(255, 240, 190, 1)) drop-shadow(0 0 26px rgba(255, 220, 150, 0.75));
+}
+
+@keyframes fw-lit {
+  0%, 100% { opacity: 1; transform: rotate(var(--ang, 0deg)) scale(calc(var(--scale, 1) * 1)); }
+  50% { opacity: 0.9; transform: rotate(var(--ang, 0deg)) scale(calc(var(--scale, 1) * 1.07)); }
+}
+
+.fw-star.done .fw-star-halo {
+  animation: fw-lit-halo 3.4s ease-in-out infinite;
+}
+
+@keyframes fw-lit-halo {
+  0%, 100% { opacity: 0.95; transform: scale(1.05); }
+  50% { opacity: 0.7; transform: scale(1.12); }
+}
+
+.fw-star.done .fw-star-core {
+  animation: none;
+  box-shadow: 0 0 16px rgba(255, 240, 190, 1), 0 0 34px rgba(255, 225, 165, 0.7);
+}
+
+/* Tiny heart/sparkle marker hugging a discovered star */
+.fw-mark {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  font-size: 15px;
+  line-height: 1;
+  color: #ffd9a0;
+  text-shadow: 0 0 8px rgba(255, 210, 140, 0.95);
+  animation: fw-mark-spin 7s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes fw-mark-spin {
+  from { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.2); }
+  to { transform: rotate(360deg) scale(1); }
+}
+
+/* ================= WISH BUBBLE ================= */
+
+.fw-wish {
+  position: absolute;
+  z-index: 20;
+  max-width: min(70vw, 280px);
+  padding: 13px 16px;
+  border-radius: 18px;
+  text-align: center;
+  color: #fff;
+  font-size: clamp(0.92rem, 3.3vw, 1.08rem);
+  font-weight: 700;
+  line-height: 1.45;
+  letter-spacing: 0.2px;
+  background:
+    radial-gradient(130% 150% at 20% 0%, rgba(255, 255, 255, 0.14), rgba(0, 0, 0, 0) 55%),
+    linear-gradient(160deg, rgba(56, 40, 110, 0.82), rgba(30, 22, 74, 0.86));
+  border: 1px solid rgba(255, 230, 180, 0.32);
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(255, 210, 150, 0.22),
+    inset 0 0 20px rgba(255, 220, 170, 0.08);
+  pointer-events: none;
+  animation: fw-wish-in 0.55s cubic-bezier(0.22, 1.2, 0.36, 1) both;
+}
+
+/* bubble position — where it sits relative to its star */
+.bub-center .fw-wish { left: 50%; transform: translateX(-50%); }
+.bub-left .fw-wish { left: 12px; }
+.bub-right .fw-wish { right: 12px; left: auto; }
+.vert-above .fw-wish { bottom: calc(100% + 20px); }
+.vert-below .fw-wish { top: calc(100% + 20px); }
+
+.fw-wish-text {
+  position: relative;
+  z-index: 2;
+}
+
+.fw-wish-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 72%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 200, 140, 0.22), rgba(0, 0, 0, 0) 70%);
+  filter: blur(14px);
+  z-index: 0;
+}
+
+@keyframes fw-wish-in {
+  0% { opacity: 0; transform: translateY(26px) scale(0.82); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* keep position-specific transforms while entering */
+.bub-center .fw-wish { animation-name: fw-wish-in-center; }
+.bub-left .fw-wish { animation-name: fw-wish-in-left; }
+.bub-right .fw-wish { animation-name: fw-wish-in-right; }
+
+@keyframes fw-wish-in-center {
+  0% { opacity: 0; transform: translateX(-50%) translateY(26px) scale(0.82); }
+  100% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+}
+
+@keyframes fw-wish-in-left {
+  0% { opacity: 0; transform: translateY(26px) scale(0.82); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes fw-wish-in-right {
+  0% { opacity: 0; transform: translateY(26px) scale(0.82); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.fw-swrap .sparkle-burst {
+  position: absolute;
+  inset: -40px;
+  z-index: 21;
+  pointer-events: none;
+}
+
+/* ================= PROGRESS ================= */
+
+.fw-progress {
+  position: absolute;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%);
+  z-index: 40;
+  font-size: clamp(0.85rem, 3vw, 0.98rem);
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  color: rgba(255, 232, 196, 0.55);
+  text-shadow: 0 0 12px rgba(255, 200, 140, 0.25);
+  background: rgba(10, 12, 36, 0.35);
+  border: 1px solid rgba(255, 230, 180, 0.16);
+  border-radius: 999px;
+  padding: 7px 18px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* ================= FINALE — CONSTELLATION ================= */
+
+.fw-finale {
+  position: absolute;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fw-finale-in 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes fw-finale-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fw-finale-nightsky {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(70vmax 50vmax at 50% 28%, rgba(90, 80, 190, 0.18), rgba(0, 0, 0, 0) 60%),
+    radial-gradient(90vmax 60vmax at 50% 115%, rgba(150, 70, 160, 0.16), rgba(0, 0, 0, 0) 60%);
+  animation: fw-finale-breathe 5s ease-in-out infinite;
+}
+
+@keyframes fw-finale-breathe {
+  0%, 100% { opacity: 0.75; }
+  50% { opacity: 1; }
+}
+
+/* All six stars slowly brighten in the finale */
+.fw-page.all-lit .fw-swrap .fw-star-shape {
+  animation: fw-all-lit 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 12px rgba(255, 243, 205, 1)) drop-shadow(0 0 32px rgba(255, 228, 170, 0.85)) drop-shadow(0 0 64px rgba(255, 220, 160, 0.45));
+}
+
+@keyframes fw-all-lit {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.82; }
+}
+
+/* The constellation lines */
+.fw-constellation {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.fw-constellation line {
+  stroke: rgba(255, 238, 200, 0.6);
+  stroke-width: 1.6px;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  filter: drop-shadow(0 0 4px rgba(255, 225, 160, 0.8));
+  animation: fw-line-draw 1.5s ease-out forwards;
+}
+
+@keyframes fw-line-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Finale starburst */
+.fw-star-burst {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.fw-burst-star {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  line-height: 1;
+  color: #ffedc2;
+  text-shadow: 0 0 10px rgba(255, 225, 160, 0.95), 0 0 22px rgba(255, 210, 150, 0.6);
+  opacity: 0;
+  animation: fw-burst-fly 1.6s cubic-bezier(0.15, 0.7, 0.3, 1) forwards;
+}
+
+@keyframes fw-burst-fly {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.3) rotate(0deg); }
+  15% { opacity: 1; }
+  75% { opacity: 0.85; }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.1) rotate(var(--rot)); }
+}
+
+/* Finale message stack */
+.fw-finale-inner {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 640px;
+  width: 100%;
+  padding: 26px 22px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.fw-fin {
+  margin: 0 0 16px 0;
+  opacity: 0;
+  animation: fw-text-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.fw-fin-1 {
+  font-size: clamp(1.3rem, 4.6vw, 1.9rem);
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 0 3px 34px rgba(170, 150, 255, 0.6), 0 0 60px rgba(255, 210, 150, 0.35);
+  animation-delay: 0.7s;
+}
+
+.fw-fin-2 {
+  font-size: clamp(1.05rem, 3.8vw, 1.45rem);
+  font-weight: 800;
+  color: rgba(255, 244, 232, 0.92);
+  animation-delay: 2s;
+}
+
+.fw-fin-3 {
+  font-size: clamp(1rem, 3.5vw, 1.3rem);
+  font-weight: 700;
+  color: #ffd9a6;
+  line-height: 1.6;
+  text-shadow: 0 2px 24px rgba(255, 200, 130, 0.5);
+  animation-delay: 3.4s;
+}
+
+.fw-fin-4 {
+  font-size: clamp(1.15rem, 4.2vw, 1.6rem);
+  font-weight: 900;
+  color: #fff;
+  animation-delay: 5s;
+}
+
+.fw-fintitle {
+  margin: 14px 0 30px 0;
+  font-size: clamp(1.5rem, 5.6vw, 2.5rem);
+  font-weight: 900;
+  letter-spacing: 0.6px;
+  background: linear-gradient(135deg, #ffd98a, #ffb0d0, #c8b5ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 60px rgba(255, 190, 160, 0.45);
+  opacity: 0;
+  animation: fw-text-in 1s 6.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.fw-finale-btn {
+  border: none;
+  border-radius: 999px;
+  padding: 16px 36px;
+  font-size: clamp(1rem, 3.3vw, 1.2rem);
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  font-family: inherit;
+  color: #fff;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  background: linear-gradient(135deg, #7a6bff, #b06bff, #ff6ba9);
+  background-size: 220% 220%;
+  box-shadow: 0 0 26px rgba(150, 120, 255, 0.45), 0 12px 30px rgba(0, 0, 0, 0.38);
+  opacity: 0;
+  animation: fw-text-in 0.9s 7.9s cubic-bezier(0.22, 1, 0.36, 1) both, fw-finale-glow 2.4s ease-in-out 8.4s infinite;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+@keyframes fw-finale-glow {
+  0%, 100% { box-shadow: 0 0 22px rgba(150, 120, 255, 0.4), 0 12px 30px rgba(0, 0, 0, 0.38); background-position: 0% 50%; }
+  50% { box-shadow: 0 0 44px rgba(170, 130, 255, 0.75), 0 12px 32px rgba(0, 0, 0, 0.42); background-position: 100% 50%; }
+}
+
+.fw-finale-btn:hover {
+  transform: scale(1.06);
+}
+
+.fw-finale-btn:active {
+  transform: scale(0.97);
+}
+
+@keyframes fw-text-in {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 640px) {
+  .fw-star {
+    width: 68px;
+    height: 68px;
+  }
+
+  .fw-star-shape {
+    width: 38px;
+    height: 38px;
+  }
+
+  .fw-star-shape::before {
+    width: 40px;
+  }
+
+  .fw-star-shape::after {
+    height: 40px;
+  }
+
+  .fw-wish {
+    max-width: min(74vw, 250px);
+    padding: 11px 14px;
+  }
+
+  .fw-progress {
+    bottom: 16px;
+    padding: 6px 14px;
+  }
+
+  .fw-finale-inner {
+    padding: 20px 16px;
+  }
+}
+
+@media (max-height: 620px) {
+  .fw-intro {
+    gap: 8px;
+  }
+
+  .fw-wish {
+    max-width: min(60vw, 220px);
+    font-size: 0.88rem;
+  }
+
+  .fw-finale-inner {
+    padding: 12px 10px;
+  }
+
+  .fw-fin {
+    margin-bottom: 10px;
+  }
+}
